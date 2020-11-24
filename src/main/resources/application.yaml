@@ -1,0 +1,6 @@
+keycloak:
+  realm: example
+  resource: admin-spring-boot
+  auth-server-url: http://localhost:8090/auth
+  credentials:
+    secret: <KEYCLOAK-SECERET>
