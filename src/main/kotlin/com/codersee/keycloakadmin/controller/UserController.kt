@@ -21,6 +21,10 @@ class UserController(
     fun findById(@PathVariable id: String) =
         userService.findById(id)
 
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: String) =
+        userService.updateWecomUserId(id, "myTestId")
+
     @GetMapping("/username/{username}")
     fun findByUsername(@PathVariable username: String) =
         userService.findByUsername(username)

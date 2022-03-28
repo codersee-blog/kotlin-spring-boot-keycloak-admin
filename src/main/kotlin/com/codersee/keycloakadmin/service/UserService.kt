@@ -7,6 +7,7 @@ import org.keycloak.representations.idm.RoleRepresentation
 import org.keycloak.representations.idm.UserRepresentation
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.ws.rs.core.Response
 
 @Service
@@ -60,6 +61,21 @@ class UserService(
             .realm(realm)
             .users()
             .create(user)
+    }
+
+    fun updateWecomUserId(id: String, wecomUserId: String) {
+        val userResource = keycloak.realm(realm).users().get(id)
+        val userPresentation = userResource.toRepresentation()
+        if (userPresentation.getAttributes() == null) {
+            userPresentation.setAttributes(HashMap())
+        }
+        userPresentation.setLastName("===test===")
+        userPresentation.getAttributes().put(
+            "WECOM_USER_ID",
+            Collections.singletonList(wecomUserId)
+        )
+
+        userResource.update(userPresentation)
     }
 
     private fun prepareUserRepresentation(
